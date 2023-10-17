@@ -1,6 +1,6 @@
 theme: jekyll-theme-hacker
-title: CyCIF
-description: A Simple Approach to Highly Multiplexed Cell and Tissue Imaging
+title: McCaffrey 2022
+description: McCaffrey 2022
 sass:
     load_paths:
         - _scss
