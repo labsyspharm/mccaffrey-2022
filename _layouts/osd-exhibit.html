@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}" class="h-100">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> {% seo %}
+
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!-- style="position:relative" -->
+
+  {% assign cell_type_data = site.data.cell_type_links_database %}
+  {% assign marker_data = site.data.marker_links_database %}
+
+  {% if page.cell_type_data != nil %}
+    {% assign cell_type_data = page.cell_type_data %}
+  {% endif %}
+  {% if page.marker_data != nil %}
+    {% assign marker_data = page.marker_data %}
+  {% endif %}
+
+  {% assign config_paper = site.data[page.paper] %}
+  {% assign config_figure = config_paper[page.figure] %}
+  {% assign exhibit = config_figure %}
+
+  {% assign home_end = page.url | split: '/' | size | minus: 1 %}
+  {% assign home_parent = page.url | split: '/' | slice: 0, home_end | join: '/' %}
+
+    <header class="m-0">
+        {% include nav.html %}
+    </header>
+
+    <div style="height:100%" id="minerva-browser"></div>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script> 
+    <script src="https://api.html5media.info/1.2.2/html5media.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/minerva-browser@3.2.0/build/bundle.js"></script>
+    <script>
+        window.viewer = MinervaStory.default.build_page({
+          embedded: true,
+          id: "minerva-browser",
+          exhibit: {{ exhibit | jsonify }},
+          markerData: {{ marker_data | jsonify }},
+          cellTypeData: {{ cell_type_data | jsonify }},
+          homeUrl: "{{ page.home | default: home_parent }}",
+          speech_bucket: "{{ site.speech_bucket }}"
+        });
+        document.getElementsByClassName("minerva-legend")[0].style.top = "4em";
+        document.getElementsByClassName("minerva-sidebar-menu")[0].style.top = "4em";
+    </script>
+</body>
+
+</html>

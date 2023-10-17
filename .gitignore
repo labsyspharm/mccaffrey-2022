@@ -1,0 +1,13 @@
+_site/
+Gemfile.lock
+
+yarn.lock
+*.log
+
+.DS_Store
+.eslintrc
+*.swp
+
+node_modules
+_includes/bundle.js
+_includes/scripts.js

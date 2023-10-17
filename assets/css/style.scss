@@ -1,0 +1,95 @@
+---
+---
+// @import "{{ site.theme }}";
+// @import "fonts";
+// @import "theme_customizations";
+@import "scss/functions";
+@import "variables";
+@import "scss/bootstrap";
+@import "img_video";
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-top: $headings-margin-bottom * 1.5;
+}
+
+section#main_content {
+    @extend .mt-5
+}
+
+body {
+  letter-spacing: 0.02em;
+}
+
+svg a:hover text {
+  text-decoration: underline;
+  fill: #0fabff;
+}
+
+.navbar-light {
+  font-family: 'Roboto', sans-serif;
+  background-color: rgba(255, 255, 255, 0.86);
+}
+.navbar-light .navbar-nav > .nav-item > .nav-link {
+  color: #0a59a8;
+}
+
+.navbar-light .container > .navbar-toggler {
+  border-color: rgba(0, 0, 0, 0.86);
+  grid-template-rows: 0.2em auto 1fr;
+}
+.navbar-light .container > .navbar-toggler > span {
+  margin-top: 0.15em;
+  display: block;
+}
+
+
+.banner-text-container,
+.banner-tall {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.banner-tall {
+  min-height: 75vh;
+}
+@include media-breakpoint-down(sm) {
+  .banner-tall{
+    min-height: auto;
+  }
+}
+
+hr {
+    height: 0.1rem;
+    @extend .my-5
+}
+
+.select2-results ul {
+  color: black;
+}
+
+.plot {
+  position: absolute;
+}
+
+#plot-canvas {
+  z-index: 2;
+}
+
+#axis-svg {
+  z-index: 1;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: white;
+  shape-rendering: crispEdges;
+}
+
+.tick line{
+  opacity: 0.2;
+}
+
+.legend{
+  z-index: 3;
+  float:left;
+}

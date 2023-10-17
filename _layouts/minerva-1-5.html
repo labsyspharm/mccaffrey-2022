@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}" class="h-100">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}"> {% seo %}
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!-- style="position:relative" -->
+
+  {% assign config_paper = site.data %}
+  {% assign subdirs = page.exhibit | split: "/" %}
+  {% for key in subdirs %}
+    {% assign config_paper = config_paper[key] %}
+  {% endfor %}
+
+  {% assign exhibit = config_paper.exhibit %}
+
+  {% assign home_end = page.url | split: '/' | size | minus: 1 %}
+  {% assign home_parent = page.url | split: '/' | slice: 0, home_end | join: '/' %}
+
+    <div style="height:100%" id="minerva-browser"></div>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/minerva-browser@3.19.2/build/bundle.js"></script>
+    <script>
+        const exhibit = {{ exhibit | jsonify }};
+        const image_path = "{{ page.images }}";
+        /* Overwrite image path from config */
+        if (image_path.length > 0) {
+          exhibit.Images.forEach(img => img.Path = image_path);
+        }
+        window.viewer = MinervaStory.default.build_page({
+          embedded: true,
+          hideWelcome: true,
+          id: "minerva-browser",
+          exhibit: exhibit,
+          homeUrl: "{{ page.home | default: home_parent }}"
+        });
+        document.getElementsByClassName("minerva-legend")[0].style.top = "4em";
+        document.getElementsByClassName("minerva-sidebar-menu")[0].style.top = "4em";
+    </script>
+</body>
+
+</html>
